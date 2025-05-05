@@ -94,5 +94,5 @@ begin
         end if;
     end process;
     o_flags(1) <= ((not i_op(1)) and w_Cout2);
-    o_flags(0) <= (not ((i_A(7) xor i_B(7) xor i_op(0))) and (w_S(7) xor i_A(7)) and i_op(1));
+    o_flags(0) <= (i_A(7) and w_B(7) and not w_S(7)) or (not i_A(7) and not w_B(7) and w_S(7));
 end Behavioral;

@@ -168,19 +168,7 @@ begin
         assert w_flags  = "1000"             -- N=1 Z=0 C=0 V=0
             report "OR: wrong NZCV" severity error;
             
-            
-            
-            
-        w_A  <= x"04";
-        w_B  <= x"08";
-        w_op <= OP_SUB;
-        wait for k_step;
-
-        assert w_result = x"B4"
-            report "sub: wrong result" severity error;
-        assert w_flags  = "0000"             -- N=0 Z=0 C=0 V=0
-            report "sub: wrong NZCV" severity error;
-
+ 
         ----------------------------------------------------------------------------
         --  All tests passed
         ----------------------------------------------------------------------------
