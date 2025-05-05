@@ -27,10 +27,10 @@ begin
         binary_value := to_integer(signed(i_bin));
         if binary_value < 0 then
             o_sign <= x"A";
-            --decimal_value := -binary_value;
+            decimal_value := -binary_value;
         else
             o_sign <= x"B";
-            --decimal_value := binary_value;
+           decimal_value := binary_value;
         end if;
         
         o_hund <= std_logic_vector(to_unsigned(decimal_value/100, 4));

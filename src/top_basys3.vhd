@@ -131,7 +131,7 @@ begin
      clock1 : clock_divider
 	--k_div = 12500 --from old code may need to change K_DIV
 	   generic map (
-            k_DIV =>  416666
+            k_DIV =>  125000
         )
         port map(
 	        i_clk => clk,
@@ -141,7 +141,7 @@ begin
 	    
 	    TDM1 : TDM4
         port map ( 
-           i_clk => clk,
+           i_clk => w_clk,
            i_reset	=> btnU,
            i_D3 => w_sign,
 		   i_D2 => w_hund,
@@ -175,18 +175,18 @@ begin
            o_flags => w_flags
            );
 	    
-         register_proc : process (w_clk)
+         register_proc : process (clk)
         begin
-            if rising_edge(w_clk) then
-                if w_fsmOutput(0) = '1' then
+            if rising_edge(clk) then
+                if w_fsmOutput(1) = '1' then
                     f_Q <= sw(7 downto 0);
                 end if;
             end if;
         end process register_proc;
         
-        register_proc2 : process (w_clk)
+        register_proc2 : process (clk)
         begin
-            if rising_edge(w_clk) then
+            if rising_edge(clk) then
                 if w_fsmOutput(2) = '1' then
                     f_Q1 <= sw(7 downto 0);
                 end if;
@@ -197,13 +197,13 @@ begin
 	-- CONCURRENT STATEMENTS ----------------------------
 	   
         process(w_fsmOutput, w_sel)
-begin
-    if w_fsmOutput = "0001" then
-        an <= "1111";
-    else
-        an <= w_sel;
-    end if;
-end process;
+    begin
+        if w_fsmOutput = "0001" then
+            an <= "1111";
+        else
+            an <= w_sel;
+        end if;
+    end process;
                  
         led(15 downto 12) <= w_flags;
         led(3 downto 0) <= w_fsmOutput;
